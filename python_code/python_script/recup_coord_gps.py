@@ -8,7 +8,6 @@ def atoi(str):
         resultant = resultant * 10 + (ord(str[i]) - ord('0'))        #It is ASCII substraction 
     return resultant
 
-# à modifier en fonction du format envoyé, moi j'ai fais d'une façon mais au moins vous avez l'idée
 def base64_to_ascii(payload):
     payload_trad = base64.b64decode(payload).decode() # décode la payload recue de TTN encodé en base 64
 
@@ -27,6 +26,10 @@ def base64_to_ascii(payload):
 
 #recupere les messages de ttn
 
+auth_wiggle_name = '' #use your own
+auth_wiggle_token = '' #use your own
+authorization_lora_ttn = '' #use your own
+
 import time
 import requests
 import json
@@ -44,13 +47,13 @@ def wiggle_request(BSSID) :
         'https://api.wigle.net/api/v2/network/detail',
         params=params,
         headers=headers,
-        auth=('AIDf66bd0b82e82402e58b36f6dbdd59ff5', '497caef5f342d8155c71da9894fa6d43'),
+        auth=(auth_wiggle_name, auth_wiggle_token),
     )
 
-    longitude = -1
-    latitude = -1
+    longitude = -1000
+    latitude = -1000
 
-    print(response.text)
+    #print(response.text)
 
     try :
         payload = json.loads(response.text)
@@ -65,7 +68,7 @@ def wiggle_request(BSSID) :
 
 def get_lora_message() :
         headers = {
-            'Authorization': 'Bearer NNSXS.SMS4CI3XZBYCNZFDAJKBSL3EU3VUMHLVHDMKYKI.VV2CUQ7WJMTQ36W6UWUX5RYYWPW6GXP6GKEZSEPQONIP2IL3V53A',
+            'Authorization': authorization_lora_ttn,
             'Accept': 'text/event-stream',
         }
 
@@ -103,7 +106,7 @@ def get_lora_message() :
         for i in range(0, 5, 1) :
             wiggle_result = wiggle_results[i]
             result = results[i]
-            if wiggle_result == [-1, -1] :
+            if wiggle_result == [-1000, -1000] :
                 continue
             else :
                 temp = 100 - result[1]
@@ -114,9 +117,7 @@ def get_lora_message() :
         if (div != 0) :
             lat = lat / div
             long = long / div
-        
-        print([lat, long])
-
+            print([lat, long])
         
 def boucle() :
     while True :

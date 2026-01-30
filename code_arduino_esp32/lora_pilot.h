@@ -1,11 +1,11 @@
 #ifndef LORA_PILOT_H
 #define LORA_PILOT_H
 
-#define AT_DR1 "AT+DR=EU868"
-#define AT_DR2 "AT+DR=DR3"
-#define DEVEUI "AT+ID=DevEUI,70B3D57ED0073496"
-#define APPEUI "AT+ID=AppEUI,0000000000000000"
-#define APPKEY "AT+KEY=APPKEY,6B6C025304DA03A05C84891F66E987E1"
+#define AT_DR1 "AT+DR=" /* Use Yours*/
+#define AT_DR2 "AT+DR=" /* Use Yours*/
+#define DEVEUI "AT+ID=DevEUI," /* Use Yours*/
+#define APPEUI "AT+ID=AppEUI," /* Use Yours*/
+#define APPKEY "AT+KEY=APPKEY," /* Use Yours*/
 
 #include "network.h"
 

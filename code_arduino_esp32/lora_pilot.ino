@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <cstdio>
 
 #include "define.h"
 #include "network.h"
@@ -52,8 +53,6 @@ int send_net_scan(net_scan_t *scan)
     
     int status = 1;
 
-    /*!!! time !!!*/
-    
     /*Envoie des adresses mac, s'arrete si on a envoyé tous les réseaux détecter ou qu'on a atteint la limite définie*/
     for (int i = 0; (i < scan -> nb_network) && (i < MAX_SENT_NETWORK); i++)
     {
@@ -66,6 +65,12 @@ int send_net_scan(net_scan_t *scan)
             return status;
         }
     }
+
+    //char tail[9];
+    //sscanf(tail, "Done.%03d", (scan -> nb_network > MAX_SENT_NETWORK) ? MAX_SENT_NETWORK : scan -> nb_network);
+    //tail[8] = '\0';
+    //serial_write(tail);
+    //status = serial_read_until("Done", 4);
 
     serial_empty_buffer();
 
