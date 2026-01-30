@@ -19,7 +19,4 @@ int lora_connect(void);
 retourne 0 si l'envois a échoué, 1 sinon*/
 int send_net_scan(net_scan_t *scan);
 
-/*!!! deprecated !!!*/
-int lora_send_msg(net_scan_t **scan_buffer, int start, int end, int remaining_time);
-
 #endif

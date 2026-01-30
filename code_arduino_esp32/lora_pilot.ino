@@ -66,35 +66,7 @@ int send_net_scan(net_scan_t *scan)
         }
     }
 
-    //char tail[9];
-    //sscanf(tail, "Done.%03d", (scan -> nb_network > MAX_SENT_NETWORK) ? MAX_SENT_NETWORK : scan -> nb_network);
-    //tail[8] = '\0';
-    //serial_write(tail);
-    //status = serial_read_until("Done", 4);
-
     serial_empty_buffer();
 
     return status;
-}
-
-int lora_send_msg(net_scan_t **scan_buffer, int start, int end, int remaining_time)
-{
-    int time = millis();
-    int status = 1;
-
-    int i = start;
-
-    for (; i != end && (millis() - time <= remaining_time); (i >= SCAN_BUFFER_SIZE) ? i = 0 : i++)
-    {
-        status = send_net_scan(scan_buffer[i]);
-
-        if (status == 0)
-        {
-            return i;
-        }
-
-        free_scan(scan_buffer[i]);
-    }
-
-    return i;
 }
