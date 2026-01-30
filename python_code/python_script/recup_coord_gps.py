@@ -73,7 +73,7 @@ def get_lora_message() :
         }
 
         params = {
-            'last': '24h',
+            'last': '2m',
             'limit' : '5'
         }
 
